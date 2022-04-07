@@ -63,6 +63,12 @@ class VariationScraper:
             exisited_variations = [list(list(value)) for key, value in res['dimensionValuesDisplayData'].items()]
             not_existed_variations = [element for element in all_of_variations if element not in exisited_variations]
             res.update({"all_of_variations": all_of_variations, "not_existed_variations": not_existed_variations})
+
+            if len(res["variationValues"]) == 1:
+                return  {
+                    "status": "fail",
+                    "message": "This product has only a varation."
+                }
             return res
         except Exception as e:
             print(f"Exception happens: {e}")
